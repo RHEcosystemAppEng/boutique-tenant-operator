@@ -37,7 +37,7 @@ make docker-build docker-push IMG="$IMAGE_TAG_BASE"
 
 # Make the operator bundle by adding OLM to the operator image
 make bundle IMG="quay.io/ecosystem-appeng/saas-tenant-operator:v0.0.1" IMAGE_TAG_BASE="quay.io/ecosystem-appeng/saas-tenant-operator:v0.0.1"
-make bundle-build bundle-push IMG="quay.io/ecosystem-appeng/saas-tenant-operator:v0.0.1"
+make bundle-build bundle-push IMG="$IMAGE_TAG_BASE"
 
 # Make a new namespace and deploy the operator
 #oc new-project boutique-operator-demo
