@@ -20,3 +20,4 @@ watches.yaml
 *.swp
 *.swo
 *~
+/.gtm/
