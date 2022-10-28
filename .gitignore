@@ -6,6 +6,14 @@
 *.so
 *.dylib
 bin
+bundle
+config
+helm-charts
+bundle.Dockerfile
+Dockerfile
+Makefile
+PROJECT
+watches.yaml
 
 # editor and IDE paraphernalia
 .idea
