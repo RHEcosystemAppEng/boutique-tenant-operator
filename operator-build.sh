@@ -3,7 +3,9 @@
 set -e
 set -o pipefail
 
+# Clean directory and delete previously installed namespace
 rm -rf bin bundle config helm-charts bundle.Dockerfile Dockerfile Makefile Project watches.yaml
+oc delete ns boutique-operator-demo
 
 HELM_REPO=https://rhecosystemappeng.github.io/saas-ecommerce-boutique-shop
 HELM_CHART=tenant-manager-chart
