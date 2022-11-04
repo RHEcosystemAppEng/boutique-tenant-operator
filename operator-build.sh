@@ -3,15 +3,16 @@
 set -e
 set -o pipefail
 
-# Clean directory and delete previously installed namespace
-rm -rf bin bundle config helm-charts bundle.Dockerfile Dockerfile Makefile Project watches.yaml
-oc delete ns boutique-operator-demo
+rm -rf bin bundle config helm-charts bundle.Dockerfile Dockerfile Makefile PROJECT watches.yaml
+oc delete ns boutique-operator-demo || true
 
 HELM_REPO=https://rhecosystemappeng.github.io/saas-ecommerce-boutique-shop
 HELM_CHART=tenant-manager-chart
 CLUSTER_DOMAIN=apps.ocp.pebcac.org
 IMAGE_TAG_BASE="quay.io/ecosystem-appeng/saas-tenant-operator"
-IMG="$IMAGE_TAG_BASE:v0.0.1"
+VERSION=v0.0.1
+IMG="$IMAGE_TAG_BASE:$VERSION"
+BUNDLE_IMG="$IMAGE_TAG_BASE-bundle:$VERSION"
 
 # Returns 0 if the OLM status is missing, 1 otherwise
 #function checkOlmStatus() {
@@ -44,6 +45,6 @@ make bundle IMG="$IMG" IMAGE_TAG_BASE="$IMAGE_TAG_BASE"
 make bundle-build bundle-push IMG="$IMG" IMAGE_TAG_BASE="$IMAGE_TAG_BASE"
 
 # Make a new namespace and deploy the operator
-#oc new-project boutique-operator-demo
-#operator-sdk run bundle quay.io/ecosystem-appeng/saas-tenant-operator:v0.0.1
+oc new-project boutique-operator-demo
+operator-sdk run bundle $BUNDLE_IMG
 
